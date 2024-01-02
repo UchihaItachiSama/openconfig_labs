@@ -5,8 +5,9 @@ topology:
   kinds:
     nokia_srlinux:
       image: ghcr.io/nokia/srlinux:22.11.2
+      startup-config: baseline/srl-startup.cli
     ceos:
-      startup-config: ./ceos.cfg.tpl
+      startup-config: baseline/ceos-startup.cfg
       image: ceosimage:4.30.1F
       exec:
         - sleep 10
