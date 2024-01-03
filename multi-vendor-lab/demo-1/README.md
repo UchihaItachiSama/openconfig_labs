@@ -72,11 +72,6 @@ curl -k -X POST https://admin:admin@172.100.100.3/command-api -H "Content-Type: 
 
 ### OpenConfig Examples
 
-Nokia SR Linux
-
-```shell
-```
-
 Arista cEOS-Lab
 
 ```shell
