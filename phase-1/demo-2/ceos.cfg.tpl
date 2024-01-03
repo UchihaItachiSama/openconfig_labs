@@ -26,4 +26,8 @@ management api http-commands
    vrf MGMT
       no shutdown
 !
+management api gnmi
+   transport grpc oob
+      vrf MGMT
+!
 end
