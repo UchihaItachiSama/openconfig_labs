@@ -76,7 +76,7 @@ fobj.close()
 
 * Execute the file and we can now see the JSON file is generated.
 
-```json
+```shell
 $ python3 hostname_demo.py
 ('{\n'
  '    "system": {\n'
@@ -102,7 +102,7 @@ $ cat DC1_SPINE1_hostname.json | jq
 
 > Before
 
-```json
+```shell
 gnmic -a 172.100.100.2:6030 -u admin -p admin --insecure --gzip get --path '/system/state/hostname'
 
 [
@@ -124,7 +124,7 @@ gnmic -a 172.100.100.2:6030 -u admin -p admin --insecure --gzip get --path '/sys
 
 > Configuration
 
-```json
+```shell
 gnmic -a 172.100.100.2:6030 -u admin -p admin --insecure --gzip set --update-path '/' --update-file DC1_SPINE1_hostname.json
 
 {
@@ -141,7 +141,7 @@ gnmic -a 172.100.100.2:6030 -u admin -p admin --insecure --gzip set --update-pat
 
 > After
 
-```json
+```shell
 gnmic -a 172.100.100.2:6030 -u admin -p admin --insecure --gzip get --path '/system/state/hostname'
 [
   {
