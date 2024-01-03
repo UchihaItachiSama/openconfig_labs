@@ -12,6 +12,8 @@ Welcome to the OpenConfig training lab module! This repository contains demo scr
 * Arista cEOS-Lab Image
 * Git
 * gnmic
+* pyang
+* pyangbind
 
 ## Phase-1
 
