@@ -31,10 +31,18 @@ ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 
 ## Steps
 
-* Start the lab
+* Start the `ceos-lab` lab
 
 ```shell
+cd openconfig-labs/phase-1/ceos-lab
+
 sudo containerlab deploy -t topology.yml
+```
+
+* Navigate to the `demo-2` directory
+
+```shell
+cd openconfig-labs/phase-1/demo-2
 ```
 
 * Use Pyangbind to generate a Python module from a YANG module
