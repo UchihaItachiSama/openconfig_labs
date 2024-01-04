@@ -30,4 +30,8 @@ management api gnmi
    transport grpc oob
       vrf MGMT
 !
+management api netconf
+   transport ssh oob
+      vrf MGMT
+!
 end

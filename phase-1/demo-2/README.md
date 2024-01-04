@@ -31,6 +31,8 @@ ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 
 ## Steps
 
+### Using JSON and gNMIc
+
 * Start the `ceos-lab` lab
 
 ```shell
@@ -167,3 +169,6 @@ gnmic -a 172.100.100.2:6030 -u admin -p admin --insecure --gzip get --path '/sys
   }
 ]
 ```
+
+### Using XML and NETCONF
+

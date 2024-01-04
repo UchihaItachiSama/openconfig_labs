@@ -14,6 +14,7 @@ Welcome to the OpenConfig training lab module! This repository contains demo scr
 * gnmic
 * pyang
 * pyangbind
+* ncclient
 
 ## Phase-1
 
@@ -22,3 +23,4 @@ In Phase 1, you will find demo and lab modules covering the following topics:
 * pyang
 * pyangbind
 * gNMI
+* NETCONF
