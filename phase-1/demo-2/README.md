@@ -11,12 +11,13 @@ In this demo, we will take a look at rendering and configuring the hostnames of 
 ```shell
 python3 -m pip install pyang
 python3 -m pip install pyangbind
+python3 -m pip install ncclient
 ```
 
 * To confirm if already installed:
 
 ```shell
-python3 -m pip freeze | egrep "pyang|pyangbind"
+python3 -m pip freeze | egrep "pyang|pyangbind|ncclient"
 ```
 
 * `containerlab` and `docker` installed
