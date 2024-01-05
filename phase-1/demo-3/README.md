@@ -143,13 +143,14 @@ spine1_config.json
 
 ---
 
-cat spine1_config.json | jq
+$ cat spine1_config.json | jq
 {
   "openconfig-interfaces:interfaces": {
     "interface": [
       {
         "name": "Ethernet1",
         "config": {
+          "name": "Ethernet1",
           "description": "P2P_LINK_TO_DC1_LEAF1_Ethernet1",
           "enabled": true
         },
@@ -180,6 +181,7 @@ cat spine1_config.json | jq
       {
         "name": "Ethernet2",
         "config": {
+          "name": "Ethernet2",
           "description": "P2P_LINK_TO_DC1_LEAF2_Ethernet1",
           "enabled": true
         },
@@ -195,6 +197,37 @@ cat spine1_config.json | jq
                       "config": {
                         "ip": "172.31.255.2",
                         "prefix-length": 31
+                      }
+                    }
+                  ]
+                },
+                "config": {
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Loopback1",
+        "config": {
+          "name": "Loopback1",
+          "description": "EVPN_Overlay_Peering",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": "0",
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "192.168.255.1",
+                      "config": {
+                        "ip": "192.168.255.1",
+                        "prefix-length": 32
                       }
                     }
                   ]
