@@ -15,6 +15,11 @@ dc1 = {
             "ipv4": "172.31.255.2",
             "mask": "31",
             "descr": "P2P_LINK_TO_DC1_LEAF2_Ethernet1"
+        },
+        "Loopback1": {
+          "ipv4": "192.168.255.1",
+          "mask": "32",
+          "descr": "EVPN_Overlay_Peering",
         }
     },
     "leaf1": {
@@ -22,6 +27,11 @@ dc1 = {
             "ipv4": "172.31.255.1",
             "mask": "31",
             "descr": "P2P_LINK_TO_DC1_SPINE1_Ethernet1"
+        },
+        "Loopback1": {
+          "ipv4": "192.168.255.2",
+          "mask": "32",
+          "descr": "EVPN_Overlay_Peering",
         }
     },
     "leaf2": {
@@ -29,6 +39,11 @@ dc1 = {
             "ipv4": "172.31.255.3",
             "mask": "31",
             "descr": "P2P_LINK_TO_DC1_SPINE1_Ethernet2"
+        },
+        "Loopback1": {
+          "ipv4": "192.168.255.3",
+          "mask": "32",
+          "descr": "EVPN_Overlay_Peering",
         }
     }
 }
@@ -40,6 +55,7 @@ for switch,interfaces in dc1.items():
         eth_intf = oc.interfaces.interface[intf]
         eth_intf.config.enabled = True
         eth_intf.config.description = value["descr"]
+        eth_intf.config.name = intf
         eth_intf.subinterfaces.subinterface.add(0)
         sub_intf0 = eth_intf.subinterfaces.subinterface[0]
         sub_intf0.ipv4.config.enabled = True
