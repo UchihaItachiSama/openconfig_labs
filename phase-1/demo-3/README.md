@@ -99,14 +99,15 @@ for switch,interfaces in dc1.items():
     oc = openconfig_interfaces()
     for intf, value in interfaces.items():
         oc.interfaces.interface.add(intf)
-        oc.interfaces.interface[intf].config.enabled = 'true'
-        oc.interfaces.interface[intf].config.description = value["descr"]
-        oc.interfaces.interface[intf].subinterfaces.subinterface.add(0)
-        oc.interfaces.interface[intf].subinterfaces.subinterface[0].ipv4.config.enabled = 'true'
-        oc.interfaces.interface[intf].subinterfaces.subinterface[0].ipv4.addresses.address.add(ip=value["ipv4"])
-        oc.interfaces.interface[intf].subinterfaces.subinterface[0].ipv4.addresses.address[value["ipv4"]].config.ip = value["ipv4"]
-        oc.interfaces.interface[intf].subinterfaces.subinterface[0].ipv4.addresses.address[value["ipv4"]].config.prefix_length = value["mask"]
-        #oc.interfaces.interface[intf].subinterfaces.subinterface[0].ipv4.addresses.address[value["ipv4"]].config.type = 'PRIMARY'
+        eth_intf = oc.interfaces.interface[intf]
+        eth_intf.config.enabled = True
+        eth_intf.config.description = value["descr"]
+        eth_intf.subinterfaces.subinterface.add(0)
+        sub_intf0 = eth_intf.subinterfaces.subinterface[0]
+        sub_intf0.ipv4.config.enabled = True
+        sub_intf0.ipv4.addresses.address.add(value["ipv4"])
+        sub_intf0.ipv4.addresses.address[value["ipv4"]].config.ip = value["ipv4"]
+        sub_intf0.ipv4.addresses.address[value["ipv4"]].config.prefix_length = value["mask"]
     #pp(pybindJSON.dumps(oc))
     with open("./{}_config.json".format(switch), "w") as fobj:
         fobj.write(pybindJSON.dumps(oc, mode="ietf"))
