@@ -115,7 +115,7 @@ for switch,interfaces in dc1.items():
 
 * Execute the above python file and we can now see the JSON files with the interface models are generated.
 
-```
+```shell
 $ python3 interface_demo.py
 
 ---
