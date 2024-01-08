@@ -1,12 +1,62 @@
 # Demo-1
 
-This demo lab has the following basic topology, an Arista cEOS-Lab node connected via a point-to-point ethernet link to a Nokia SR Linux node.
+This demo lab has the following multi-vendor topology:
+
+1. Arista cEOS-Lab (ceos)
+2. Nokia SR Linux (srl)
+3. FRRouting (frr)
 
 ```shell
-ceos[eth1] <--> [e1-1]srl
+      ┌───────────┐                       ┌───────────┐
+      │           │ eth1             e1-1 │           │
+      │   ceos    ├───────────────────────┤    srl    │
+      │           │                       │           │
+      └─────┬─────┘                       └──────┬────┘
+       eth2 │                                    │ e1-2
+            │                                    │
+            │            ┌───────────┐           │
+            │            │           │           │
+            └────────────┤    frr    ├───────────┘
+                     eth2│           │ eth1
+                         └───────────┘
 ```
 
-The lab nodes are pre-configured with layer-3 interface and BGP configuration to bring up an iBGP session between the two nodes.
+The lab nodes are pre-configured with layer-3 interface and BGP configuration to bring up iBGP sessions between the nodes.
+
+## Requirements
+
+* Following docker images to be installed
+
+```shell
+$ docker images | egrep "IMAGE|ceos|frr|srlinux"
+
+REPOSITORY               TAG          IMAGE ID       CREATED         SIZE
+ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
+quay.io/frrouting/frr    9.0.2        5ea6cbf6dee9   5 weeks ago     161MB
+ghcr.io/nokia/srlinux    22.11.2      9381f04f8777   11 months ago   2.66GB
+```
+
+### Arista cEOS-Lab image
+
+* Download the image from [www.arista.com](http://www.arista.com/) > Software Downloads > cEOS-Lab > EOS-4.2x.y > cEOS-lab-4.2x.y.tar.xz
+* Copy the cEOS-lab-4.2x.y.tar.xz to the host/server/VM.
+* Next, use the `docker import` command to import the cEOS-Lab image. For example
+
+```shell
+docker import cEOS64-lab-4.30.1F.tar.xz ceosimage:4.30.1F
+```
+
+### FRR image
+
+```shell
+docker pull quay.io/frrouting/frr:9.0.2
+```
+
+### SR Linux image
+
+```shell
+docker pull ghcr.io/nokia/srlinux
+```
 
 ## Deploying the lab
 
@@ -36,6 +86,12 @@ Arista cEOS-Lab
 docker exec -it clab-srlceoslab-ceos Cli
 ```
 
+FRR
+
+```shell
+docker exec -it clab-srlceoslab-frr vtysh
+```
+
 ### CLI Commands
 
 Nokia SR Linux
@@ -52,6 +108,14 @@ Arista cEOS-Lab
 ```shell
 show version
 show lldp neighbors
+show ip bgp summary
+show ip route
+```
+
+FRR
+
+```shell
+show version
 show ip bgp summary
 show ip route
 ```

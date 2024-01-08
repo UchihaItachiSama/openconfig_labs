@@ -20,9 +20,19 @@ topology:
     ceos:
       kind: ceos
       mgmt-ipv4: 172.100.100.3
-  
+    frr:
+      kind: linux
+      image: quay.io/frrouting/frr:9.0.2
+      binds:
+        - baseline/daemons:/etc/frr/daemons
+        - baseline/frr.cfg:/etc/frr/frr.conf
+        - baseline/vtysh.cfg:/etc/frr/vtysh.conf
+      mgmt-ipv4: 172.100.100.4
+
   links:
     - endpoints: ["srl:e1-1", "ceos:eth1"]
+    - endpoints: ["srl:e1-2", "frr:eth1"]
+    - endpoints: ["ceos:eth2", "frr:eth2"]
 
 mgmt:
   network: ceos_lab
