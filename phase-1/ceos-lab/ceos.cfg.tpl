@@ -34,4 +34,6 @@ management api netconf
    transport ssh oob
       vrf MGMT
 !
+ip routing
+!
 end
