@@ -6,16 +6,11 @@ enter candidate
 set / interface ethernet-1/1 admin-state enable
 set / interface ethernet-1/1 subinterface 0 admin-state enable
 set / interface ethernet-1/1 subinterface 0 ipv4 address 192.168.1.1/24
-# Ethernet1/2
-set / interface ethernet-1/2 admin-state enable
-set / interface ethernet-1/2 subinterface 0 admin-state enable
-set / interface ethernet-1/2 subinterface 0 ipv4 address 192.168.3.1/24
 #Loopback
 set / interface lo0 subinterface 0 admin-state enable
 set / interface lo0 subinterface 0 ipv4 address 10.10.10.1/32
 # Map interfaces to default NS
 set / network-instance default interface ethernet-1/1.0
-set / network-instance default interface ethernet-1/2.0
 set / network-instance default interface lo0.0
 
 # configure BGP
@@ -27,9 +22,6 @@ set / network-instance default protocols bgp group ibgp export-policy export-lo
 set / network-instance default protocols bgp neighbor 192.168.1.2 admin-state enable
 set / network-instance default protocols bgp neighbor 192.168.1.2 peer-group ibgp
 set / network-instance default protocols bgp neighbor 192.168.1.2 peer-as 65001
-set / network-instance default protocols bgp neighbor 192.168.3.3 admin-state enable
-set / network-instance default protocols bgp neighbor 192.168.3.3 peer-group ibgp
-set / network-instance default protocols bgp neighbor 192.168.3.3 peer-as 65001
 
 # Create export policy
 set / routing-policy policy export-lo statement 10 match protocol local
