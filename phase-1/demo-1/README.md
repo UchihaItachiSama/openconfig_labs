@@ -4,21 +4,13 @@ This demo lab has the following multi-vendor topology:
 
 1. Arista cEOS-Lab (ceos)
 2. Nokia SR Linux (srl)
-3. FRRouting (frr)
 
 ```shell
       ┌───────────┐                       ┌───────────┐
       │           │ eth1             e1-1 │           │
       │   ceos    ├───────────────────────┤    srl    │
       │           │                       │           │
-      └─────┬─────┘                       └──────┬────┘
-       eth2 │                                    │ e1-2
-            │                                    │
-            │            ┌───────────┐           │
-            │            │           │           │
-            └────────────┤    frr    ├───────────┘
-                     eth2│           │ eth1
-                         └───────────┘
+      └───────────┘                       └───────────┘
 ```
 
 The lab nodes are pre-configured with layer-3 interface and BGP configuration to bring up iBGP sessions between the nodes.
@@ -28,11 +20,10 @@ The lab nodes are pre-configured with layer-3 interface and BGP configuration to
 * Following docker images to be installed
 
 ```shell
-$ docker images | egrep "IMAGE|ceos|frr|srlinux"
+$ docker images | egrep "IMAGE|ceos|srlinux"
 
 REPOSITORY               TAG          IMAGE ID       CREATED         SIZE
 ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
-quay.io/frrouting/frr    9.0.2        5ea6cbf6dee9   5 weeks ago     161MB
 ghcr.io/nokia/srlinux    22.11.2      9381f04f8777   11 months ago   2.66GB
 ```
 
@@ -44,12 +35,6 @@ ghcr.io/nokia/srlinux    22.11.2      9381f04f8777   11 months ago   2.66GB
 
 ```shell
 docker import cEOS64-lab-4.30.1F.tar.xz ceosimage:4.30.1F
-```
-
-### FRR image
-
-```shell
-docker pull quay.io/frrouting/frr:9.0.2
 ```
 
 ### SR Linux image
@@ -86,12 +71,6 @@ Arista cEOS-Lab
 docker exec -it clab-srlceoslab-ceos Cli
 ```
 
-FRR
-
-```shell
-docker exec -it clab-srlceoslab-frr vtysh
-```
-
 ### CLI Commands
 
 Nokia SR Linux
@@ -108,14 +87,6 @@ Arista cEOS-Lab
 ```shell
 show version
 show lldp neighbors
-show ip bgp summary
-show ip route
-```
-
-FRR
-
-```shell
-show version
 show ip bgp summary
 show ip route
 ```
