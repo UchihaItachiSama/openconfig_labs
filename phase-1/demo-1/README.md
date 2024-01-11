@@ -48,6 +48,8 @@ docker pull ghcr.io/nokia/srlinux
 Use the following command to deploy the lab
 
 ```shell
+cd openconfig-labs/phase-1/multi-vendor-lab
+
 sudo containerlab deploy -t topology.yml
 ```
 
@@ -96,6 +98,8 @@ show ip route
 Nokia SR Linux
 
 ```shell
+cd openconfig-labs/phase-1/demo-1
+
 curl -s 'http://admin:NokiaSrl1!@172.100.100.2/jsonrpc' -d @labfiles/srl-json-req.json | python3 -m json.tool
 ```
 
