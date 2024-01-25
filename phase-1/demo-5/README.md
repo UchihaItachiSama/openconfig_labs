@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this demo, we will take a look at few examples related to `NETCONF` using `ssh` and `ncclient` with Arista cEOS-Lab devices.
+In this demo, we will take a look at few examples related to `NETCONF` using `ncclient` with Arista cEOS-Lab devices.
 
 ## Requirements
 
@@ -87,6 +87,54 @@ urn:ietf:params:netconf:capability:writable-running:1.0
 urn:ietf:params:netconf:capability:candidate:1.0
 urn:ietf:params:netconf:capability:url:1.0?scheme=file,flash,ftp,http
 <--snipped-->
+```
+
+### Get states
+
+* Using the `get_demo.py` script, which uses ncclient `get` operation to get the state data. It also uses filter to specify the portion of state data to retrieve.
+
+* Example
+
+```python
+import xml.dom.minidom
+from ncclient import manager
+
+eos = manager.connect(host='172.100.100.2', port='830', timeout=60, username='admin', password='admin', hostkey_verify=False)
+
+# Get system information
+systemState = """
+<system>
+    <state>
+    </state>
+</system>
+"""
+
+<---snipped--->
+
+reply = eos.get(filter=("subtree", systemState))
+
+print(xml.dom.minidom.parseString(str(reply)).toprettyxml())
+```
+
+* Execute the script to retrieve the system state
+
+```shell
+$ python3 get_demo.py
+
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:431b9fed-ab51-4342-8719-e90a543e2a22">
+	<data>
+		<system xmlns="http://openconfig.net/yang/system">
+			<state>
+				<boot-time>1706167316567450112</boot-time>
+				<current-datetime>2024-01-25T10:33:22Z</current-datetime>
+				<hostname>spine1</hostname>
+				<last-configuration-timestamp>1706178738766270140</last-configuration-timestamp>
+				<software-version>4.30.1F-32308478.4301F (engineering build)</software-version>
+			</state>
+		</system>
+	</data>
+</rpc-reply>
 ```
 
 ### Configuring hostname
