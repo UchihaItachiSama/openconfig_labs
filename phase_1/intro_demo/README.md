@@ -48,7 +48,7 @@ docker pull ghcr.io/nokia/srlinux
 Use the following command to deploy the lab
 
 ```shell
-cd openconfig-labs/phase-1/multi_vendor_lab
+cd openconfig_labs/phase_1/multi_vendor_lab
 
 sudo containerlab deploy -t topology.yml
 ```
@@ -95,11 +95,15 @@ show ip route
 
 ### JSON-RPC Examples
 
+Navigate to `intro_demo` directory
+
+```shell
+cd openconfig_labs/phase_1/intro_demo
+```
+
 Nokia SR Linux
 
 ```shell
-cd openconfig-labs/phase-1/intro_demo
-
 curl -s 'http://admin:NokiaSrl1!@172.100.100.2/jsonrpc' -d @labfiles/srl-json-req.json | python3 -m json.tool
 ```
 
@@ -108,6 +112,8 @@ Arista cEOS-Lab
 ```shell
 curl -k -X POST https://admin:admin@172.100.100.3/command-api -H "Content-Type: text/json" -d @labfiles/ceos-json-req.json | python3 -m json.tool
 ```
+
+*NOTE: Instead of `python3 -m json.tool` you can use `jq` if installed.*
 
 ### OpenConfig Examples
 

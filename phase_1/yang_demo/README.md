@@ -14,13 +14,12 @@ In this demo, we will take a look at
 ```shell
 python3 -m pip install pyang
 python3 -m pip install pyangbind
-python3 -m pip install ncclient
 ```
 
 * To confirm if already installed:
 
 ```shell
-python3 -m pip freeze | egrep "pyang|pyangbind|ncclient"
+python3 -m pip freeze | egrep "pyang|pyangbind"
 ```
 
 * `containerlab` and `docker` installed
@@ -40,15 +39,15 @@ ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 * Start the `ceos_lab` lab
 
 ```shell
-cd openconfig-labs/phase-1/ceos_lab
+cd openconfig_labs/phase_1/ceos_lab
 
 sudo containerlab deploy -t topology.yml
 ```
 
-* Navigate to the `yang-demo` directory
+* Navigate to the `yang_demo` directory
 
 ```shell
-cd openconfig-labs/phase-1/yang_demo
+cd openconfig_labs/phase_1/yang_demo
 ```
 
 * Use Pyangbind to generate a Python module from a YANG module
