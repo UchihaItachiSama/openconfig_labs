@@ -1,4 +1,4 @@
-# Demo-5
+# NETCONF-Demo
 
 ## Overview
 
@@ -24,18 +24,18 @@ ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 
 ## Steps
 
-* Start the `ceos-lab` lab
+* Start the `ceos_lab` lab
 
 ```shell
-cd openconfig-labs/phase-1/ceos-lab
+cd openconfig-labs/phase-1/ceos_lab
 
 sudo containerlab deploy -t topology.yml
 ```
 
-* Navigate to the `demo-5` directory
+* Navigate to the `netconf_demo` directory
 
 ```shell
-cd openconfig-labs/phase-1/demo-5
+cd openconfig-labs/phase-1/netconf_demo
 ```
 
 ### Getting Capabilities

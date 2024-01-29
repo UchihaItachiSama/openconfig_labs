@@ -1,8 +1,11 @@
-# Demo-2
+# YANG-Demo
 
 ## Overview
 
-In this demo, we will take a look at rendering and configuring the hostnames of the Arista cEOS-Lab nodes using `pyangbind` and gNMI.
+In this demo, we will take a look at
+
+* YANG tree using `pyang`
+* rendering and configuring the hostnames of the Arista cEOS-Lab nodes using `pyangbind` and gNMI.
 
 ## Requirements
 
@@ -34,18 +37,18 @@ ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 
 ### Using JSON and gNMIc
 
-* Start the `ceos-lab` lab
+* Start the `ceos_lab` lab
 
 ```shell
-cd openconfig-labs/phase-1/ceos-lab
+cd openconfig-labs/phase-1/ceos_lab
 
 sudo containerlab deploy -t topology.yml
 ```
 
-* Navigate to the `demo-2` directory
+* Navigate to the `yang-demo` directory
 
 ```shell
-cd openconfig-labs/phase-1/demo-2
+cd openconfig-labs/phase-1/yang_demo
 ```
 
 * Use Pyangbind to generate a Python module from a YANG module
