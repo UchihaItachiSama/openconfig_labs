@@ -5,6 +5,8 @@ topology:
   kinds:
     ceos:
       startup-config: ./ceos.cfg.tpl
+      binds:
+        - interfaceMapping.json:/mnt/flash/EosIntfMapping.json:ro
       image: ceosimage:4.30.1F
       exec:
         - sleep 10

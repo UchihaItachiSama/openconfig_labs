@@ -9,3 +9,5 @@ for item in eos.client_capabilities:
 print("\n########## SERVER CAPABILITIES ##########\n")
 for item in eos.server_capabilities:
     print(item)
+
+eos.close_session()

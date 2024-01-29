@@ -137,6 +137,16 @@ $ python3 get_demo.py
 </rpc-reply>
 ```
 
+### Get Configuration
+
+* Using the `get_config_demo.py` script, which uses ncclient `get-config` operation with a filter to retrieve part of the configuration
+
+* Example
+
+```python
+
+```
+
 ### Configuring hostname
 
 * Use Pyangbind to generate a Python module from a YANG module

@@ -62,3 +62,5 @@ lldp = """
 reply = eos.get(filter=("subtree", systemState))
 
 print(xml.dom.minidom.parseString(str(reply)).toprettyxml())
+
+eos.close_session()
