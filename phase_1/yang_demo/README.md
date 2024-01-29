@@ -32,9 +32,7 @@ REPOSITORY               TAG          IMAGE ID       CREATED         SIZE
 ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 ```
 
-## Steps
-
-### Using JSON and gNMIc
+## Starting the lab
 
 * Start the `ceos_lab` lab
 
@@ -49,6 +47,24 @@ sudo containerlab deploy -t topology.yml
 ```shell
 cd openconfig_labs/phase_1/yang_demo
 ```
+
+## YANG tree for better visualization
+
+```shell
+pyang -p ../yang_modules/ -f tree ../yang_modules/openconfig-system.yang
+
+pyang -p ../yang_modules/ -f tree ../yang_modules/openconfig-interfaces.yang --tree-depth=4
+
+pyang -p ../yang_modules/ -f tree ../yang_modules/openconfig-interfaces.yang --tree-path=/interfaces/interface/state
+
+pyang -p ../yang_modules/ -f xpath ../yang_modules/openconfig-interfaces.yang
+
+pyang -p ../yang_modules/ -f xpath ../yang_modules/openconfig-interfaces.yang --xpath-path=/interfaces/interface/config
+```
+
+*NOTE: `xpath` plugin needs to be installed additionally from [here](https://github.com/NSO-developer/pyang-xpath/tree/master).*
+
+## Configuring hostname
 
 * Use Pyangbind to generate a Python module from a YANG module
 
