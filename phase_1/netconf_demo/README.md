@@ -22,7 +22,7 @@ REPOSITORY               TAG          IMAGE ID       CREATED         SIZE
 ceosimage                4.30.1F      72e796e3929e   3 weeks ago     2.44GB
 ```
 
-## Steps
+## Starting the lab
 
 * Start the `ceos_lab` lab
 
@@ -118,7 +118,7 @@ print(xml.dom.minidom.parseString(str(reply)).toprettyxml())
 
 * Execute the script to retrieve the system state
 
-```shell
+```xml
 $ python3 get_demo.py
 
 <?xml version="1.0" ?>
@@ -144,7 +144,45 @@ $ python3 get_demo.py
 * Example
 
 ```python
+import xml.dom.minidom
+from ncclient import manager
 
+eos = manager.connect(host='172.100.100.2', port='830', timeout=60, username='admin', password='admin', hostkey_verify=False)
+
+# Get hostname config
+hostname = """
+<system>
+    <config>
+        <hostname>
+        </hostname>
+    </config>
+</system>
+"""
+
+<--snipped-->
+
+reply = eos.get_config(source="running", filter=("subtree", users))
+
+print(xml.dom.minidom.parseString(str(reply)).toprettyxml())
+
+eos.close_session()
+```
+
+* Execute the script to retrieve the configuration
+
+```xml
+$ python3 get_config_demo.py
+
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:5ca1dad0-7550-4bd7-be52-67af33d00b23">
+	<data xmlns:netconf="http://arista.com/yang/rpc/netconf" netconf:time-modified="2024-01-30T06:53:00.775202565Z">
+		<system xmlns="http://openconfig.net/yang/system">
+			<config>
+				<hostname>spine1</hostname>
+			</config>
+		</system>
+	</data>
+</rpc-reply> 
 ```
 
 ### Configuring hostname

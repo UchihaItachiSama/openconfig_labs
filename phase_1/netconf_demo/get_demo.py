@@ -48,8 +48,6 @@ lldp = """
                 Ethernet1
             </name>
             <neighbors>
-                <state>
-                </state>
             </neighbors>
         </interface>
     </interfaces>
