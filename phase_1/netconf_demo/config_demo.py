@@ -77,8 +77,8 @@ def deleteDNS(eos):
     #Apply the configuration on the device
     print(eos.edit_config(target="running", config=config, default_operation="none"))
 
-# Candidate configuration with lock and commit operation
-def candidate_commit(eos):
+# Modify running configuration with lock
+def runningConfigLock(eos):
     config_sys = """
     <config>
         <system xmlns="http://openconfig.net/yang/system">
@@ -121,21 +121,51 @@ def candidate_commit(eos):
     """
     print("\n{}\n".format(config_intf))
     #Apply the configuration on the device
+    with eos.locked("running"):
+        input("\nRunning-config locked! Press any key to continue...")
+        print(eos.edit_config(target="running", config=config_intf, default_operation="merge"))
+        input("\nRunning-config modified! Press any key to continue...")
+    print("\nRunning-config unlocked!\nEND")
+
+#Modify candidate config with lock and commit
+def candidateLockCommit(eos):
+    config_intf = """
+    <config>
+        <interfaces xmlns="http://openconfig.net/yang/interfaces">
+            <interface>
+                <name>
+                    Ethernet2
+                </name>
+                <config>
+                    <description>
+                        P2P_LINK_TO_CLIENT1_Ethernet1
+                    </description>
+                </config>
+            </interface>
+        </interfaces>
+    </config>
+    """
+    print("\n{}\n".format(config_intf))
+    #Apply the configuration on the device
     with eos.locked("candidate"):
-        print(eos.edit_config(target="candidate", config=config_sys, default_operation="merge"))
         print(eos.edit_config(target="candidate", config=config_intf, default_operation="merge"))
-        print("\nPress any key to continue...")
-        input()
         print(eos.commit())
+
+# Copy running-config to startup-config
+def copyConfig(eos):
+    eos.copy_config(target="startup", source="running")
+    print("\nCopied running-config to startup-config!\n")
 
 def main():
     eos = manager.connect(host='172.100.100.3', port='830', timeout=60, username='admin', password='admin', hostkey_verify=False)
-    hostname(eos)
+    #hostname(eos)
     #nameServers('1.1.1.1', eos)
     #nameServers('1.0.0.1', eos)
     #replaceDNS(eos)
     #deleteDNS(eos)
-    #candidate_commit(eos)
+    #runningConfigLock(eos)
+    #candidateLockCommit(eos)
+    copyConfig(eos)
     eos.close_session()
 
 if __name__ == '__main__':
