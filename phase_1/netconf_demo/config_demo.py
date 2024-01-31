@@ -32,30 +32,26 @@ def nameServers(server, eos):
 def replaceDNS(eos):
     config = """
     <config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
-    <system xmlns="http://openconfig.net/yang/system">
-        <dns>
-        <servers nc:operation="replace">
-            <server>
-            <address>
-                9.9.9.9
-            </address>
-            <config>
-                <address>9.9.9.9</address>
-                <port>53</port>
-            </config>
-            </server>
-            <server>
-                <address>
-                8.8.8.8
-            </address>
-            <config>
-                <address>8.8.8.8</address>
-                <port>53</port>
-            </config>
-            </server>
-        </servers>
-        </dns>
-    </system>
+        <system xmlns="http://openconfig.net/yang/system">
+            <dns>
+                <servers nc:operation="replace">
+                    <server>
+                        <address>9.9.9.9</address>
+                        <config>
+                            <address>9.9.9.9</address>
+                            <port>53</port>
+                        </config>
+                    </server>
+                    <server>
+                        <address>8.8.8.8</address>
+                        <config>
+                            <address>8.8.8.8</address>
+                            <port>53</port>
+                        </config>
+                    </server>
+                </servers>
+            </dns>
+        </system>
     </config>
     """
     print("\n{}\n".format(config))
@@ -68,13 +64,13 @@ def deleteDNS(eos):
     <config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
         <system xmlns="http://openconfig.net/yang/system">
             <dns>
-            <servers>
-            <server>
-            <address nc:operation="delete">9.9.9.9</address>
-            </server>
-        </servers>
-        </dns>
-    </system>
+                <servers>
+                    <server>
+                        <address nc:operation="delete">9.9.9.9</address>
+                    </server>
+                </servers>
+            </dns>
+        </system>
     </config>
     """
     print("\n{}\n".format(config))
@@ -86,41 +82,41 @@ def candidate_commit(eos):
     config_sys = """
     <config>
         <system xmlns="http://openconfig.net/yang/system">
-        <config>
-            <domain-name>
-            blr.aristanetworks.com
-        </domain-name>
-        </config>
-        <ntp>
-            <servers>
-            <server>
-                <address>time.google.com</address>
-                <config>
-                    <address>time.google.com</address>
-                <iburst>true</iburst>
-                <prefer>true</prefer>
-                </config>
-                </server>
-        </servers>
-        </ntp>
-    </system>
+            <config>
+                <domain-name>
+                    blr.aristanetworks.com
+                </domain-name>
+            </config>
+            <ntp>
+                <servers>
+                    <server>
+                        <address>time.google.com</address>
+                        <config>
+                            <address>time.google.com</address>
+                            <iburst>true</iburst>
+                            <prefer>true</prefer>
+                        </config>
+                    </server>
+                </servers>
+            </ntp>
+        </system>
     </config>
     """
     print("\n{}\n".format(config_sys))
     config_intf = """
     <config>
         <interfaces xmlns="http://openconfig.net/yang/interfaces">
-        <interface>
-            <name>
-            Ethernet1
-        </name>
-        <config>
-            <description>
-                P2P_LINK_TO_DC1_SPINE1_Ethernet1
-            </description>
-        </config>
-        </interface>
-    </interfaces>
+            <interface>
+                <name>
+                    Ethernet1
+                </name>
+                <config>
+                    <description>
+                        P2P_LINK_TO_DC1_SPINE1_Ethernet1
+                    </description>
+                </config>
+            </interface>
+        </interfaces>
     </config>
     """
     print("\n{}\n".format(config_intf))
@@ -134,12 +130,12 @@ def candidate_commit(eos):
 
 def main():
     eos = manager.connect(host='172.100.100.3', port='830', timeout=60, username='admin', password='admin', hostkey_verify=False)
-    #hostname(eos)
+    hostname(eos)
     #nameServers('1.1.1.1', eos)
     #nameServers('1.0.0.1', eos)
     #replaceDNS(eos)
     #deleteDNS(eos)
-    candidate_commit(eos)
+    #candidate_commit(eos)
     eos.close_session()
 
 if __name__ == '__main__':
