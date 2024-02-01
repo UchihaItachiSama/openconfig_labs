@@ -79,30 +79,6 @@ def deleteDNS(eos):
 
 # Modify running configuration with lock
 def runningConfigLock(eos):
-    config_sys = """
-    <config>
-        <system xmlns="http://openconfig.net/yang/system">
-            <config>
-                <domain-name>
-                    blr.aristanetworks.com
-                </domain-name>
-            </config>
-            <ntp>
-                <servers>
-                    <server>
-                        <address>time.google.com</address>
-                        <config>
-                            <address>time.google.com</address>
-                            <iburst>true</iburst>
-                            <prefer>true</prefer>
-                        </config>
-                    </server>
-                </servers>
-            </ntp>
-        </system>
-    </config>
-    """
-    print("\n{}\n".format(config_sys))
     config_intf = """
     <config>
         <interfaces xmlns="http://openconfig.net/yang/interfaces">
@@ -147,6 +123,7 @@ def candidateLockCommit(eos):
     """
     print("\n{}\n".format(config_intf))
     #Apply the configuration on the device
+    #eos.discard_changes()
     with eos.locked("candidate"):
         print(eos.edit_config(target="candidate", config=config_intf, default_operation="merge"))
         print(eos.commit())
@@ -156,16 +133,70 @@ def copyConfig(eos):
     eos.copy_config(target="startup", source="running")
     print("\nCopied running-config to startup-config!\n")
 
+# Candidate config discard
+def candidateLockDiscard(eos):
+    config_sys = """
+    <config>
+        <system xmlns="http://openconfig.net/yang/system">
+            <config>
+                <domain-name>
+                    blr.aristanetworks.com
+                </domain-name>
+            </config>
+            <ntp>
+                <servers>
+                    <server>
+                        <address>time.google.com</address>
+                        <config>
+                            <address>time.google.com</address>
+                            <iburst>true</iburst>
+                            <prefer>true</prefer>
+                        </config>
+                    </server>
+                </servers>
+            </ntp>
+        </system>
+    </config>
+    """
+    config = """
+    <system>
+        <config>
+            <domain-name>
+            </domain-name>
+        </config>
+        <ntp>
+            <servers>
+                <server>
+                    <address>time.google.com</address>
+                    <config></config>
+                </server>
+            </servers>
+        </ntp>
+    </system>
+    """
+    print("\n{}\n".format(config_sys))
+    #Apply the configuration on the device
+    #eos.discard_changes()
+    with eos.locked("candidate"):
+        print(eos.edit_config(target="candidate", config=config_sys, default_operation="merge"))
+        print("\nPulling candidate configuration\n")
+        reply = eos.get_config(source="candidate", filter=("subtree", config))
+        print(xml.dom.minidom.parseString(str(reply)).toprettyxml())
+        input("\nCandidate config modified! Press any key to continue...")
+        print(eos.discard_changes())
+    print("\nCandidate config discarded!\n")
+
 def main():
     eos = manager.connect(host='172.100.100.3', port='830', timeout=60, username='admin', password='admin', hostkey_verify=False)
-    #hostname(eos)
+    hostname(eos)
     #nameServers('1.1.1.1', eos)
     #nameServers('1.0.0.1', eos)
     #replaceDNS(eos)
     #deleteDNS(eos)
     #runningConfigLock(eos)
     #candidateLockCommit(eos)
-    copyConfig(eos)
+    #copyConfig(eos)
+    #candidateLockDiscard(eos)
     eos.close_session()
 
 if __name__ == '__main__':
