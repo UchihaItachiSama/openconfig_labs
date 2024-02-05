@@ -42,7 +42,7 @@ cd openconfig_labs/phase_1/restconf_demo
 
 ### Get System State
 
-```json
+```shell
 curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/state --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
 
 {
@@ -122,6 +122,14 @@ curl -sX PUT https://172.100.100.4:5900/restconf/data/openconfig-system:system/c
 * Let's confirm the hostname got updated
 
 ```shell
+$ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config/hostname --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
+
+{
+  "openconfig-system:hostname": "DC1_LEAF2"
+}
+
+----
+
 $ docker exec -it clab-openconfig-lab-leaf2 Cli
 DC1_LEAF2>enable
 
@@ -132,4 +140,3 @@ DC1_LEAF2#show hostname
 Hostname: DC1_LEAF2
 FQDN:     DC1_LEAF2
 ```
-
