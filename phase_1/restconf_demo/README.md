@@ -9,7 +9,7 @@ In this demo, we will take a look at a few examples related to `RESTCONF`.
 Confirm the following packages are installed, if not install them using pip
 
 ```shell
-python3 -m pip freeze | egrep "pyang|pyangbind|ncclient"
+python3 -m pip freeze | egrep "pyang|pyangbind"
 ```
 
 * containerlab and docker installed
@@ -56,7 +56,7 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/s
 
 ### Get interface status
 
-```json
+```shell
 curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-interfaces:interfaces/interface=Management1/state --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
 
 {
@@ -97,7 +97,7 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-interfaces:inte
 
 * State before configuration
 
-```json
+```shell
 curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config/hostname --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
 
 {
@@ -108,12 +108,28 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/c
 * Update the hostname using `hostname.json` file
 
 ```json
-$ cat hostname.json
 {
-  "system": {
-    "config": {
-      "hostname": "DC1_LEAF2"
-    }
-  }
+    "openconfig-system:hostname":"DC1_LEAF2"
 }
 ```
+
+* curl using `PUT` operation
+
+```shell
+curl -sX PUT https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure -d @hostname.json
+```
+
+* Let's confirm the hostname got updated
+
+```shell
+$ docker exec -it clab-openconfig-lab-leaf2 Cli
+DC1_LEAF2>enable
+
+DC1_LEAF2#show running-config section hostname
+hostname DC1_LEAF2
+
+DC1_LEAF2#show hostname
+Hostname: DC1_LEAF2
+FQDN:     DC1_LEAF2
+```
+
