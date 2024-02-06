@@ -18,6 +18,8 @@ management security
    ssl profile eAPI
       cipher-list HIGH:!eNULL:!aNULL:!MD5:!ADH:!ANULL
       certificate eAPI.crt key eAPI.key
+   ssl profile restconf
+      certificate restconf.crt key restconf.key
 !
 management api http-commands
    protocol https ssl profile eAPI
@@ -32,6 +34,12 @@ management api gnmi
 !
 management api netconf
    transport ssh oob
+      vrf MGMT
+!
+management api restconf
+   transport https oob
+      ssl profile restconf
+      port 5900
       vrf MGMT
 !
 ip routing
