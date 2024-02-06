@@ -93,12 +93,12 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-interfaces:inte
 
 ### Configure hostname
 
-#### PUT operation
+#### POST operation
 
 * State before configuration
 
 ```shell
-curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config/hostname --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
+curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
 
 {
   "openconfig-system:hostname": "leaf2"
@@ -113,16 +113,16 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/c
 }
 ```
 
-* curl using `PUT` operation
+* curl using `POST` operation
 
 ```shell
-curl -sX PUT https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure -d @hostname.json
+curl -sX POST https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure -d @hostname.json
 ```
 
 * Let's confirm the hostname got updated
 
 ```shell
-$ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config/hostname --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
+$ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
 
 {
   "openconfig-system:hostname": "DC1_LEAF2"
@@ -140,3 +140,103 @@ DC1_LEAF2#show hostname
 Hostname: DC1_LEAF2
 FQDN:     DC1_LEAF2
 ```
+
+### Configure DNS Domain
+
+#### POST operation
+
+* Update the DNS domain using the `dns_domain.json` file
+
+```json
+{
+    "openconfig-system:domain-name":"aristanetworks.com"
+}
+```
+
+* curl using `POST` operation
+
+```shell
+curl -sX POST https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure -d @dns_domain.json
+```
+
+* Let's confirm the dns domain got updated
+
+```shell
+$ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
+
+{
+  "openconfig-system:domain-name": "aristanetworks.com",
+  "openconfig-system:hostname": "DC1_LEAF2"
+}
+
+----
+
+$ docker exec -it clab-openconfig-lab-leaf2 Cli
+DC1_LEAF2>enable
+DC1_LEAF2#
+DC1_LEAF2#show hostname
+Hostname: DC1_LEAF2
+FQDN:     DC1_LEAF2.aristanetworks.com
+DC1_LEAF2#
+DC1_LEAF2#show running-config | egrep "hostname|dns"
+hostname DC1_LEAF2
+dns domain aristanetworks.com
+```
+
+#### PUT operation
+
+* Doing the same operation with `PUT` we can see the configuration get's replaced.
+
+```shell
+curl -sX PUT https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure -d @dns_domain.json
+```
+
+* Checking the configuration we can see the hostname got removed
+
+```shell
+$ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
+{
+  "openconfig-system:domain-name": "aristanetworks.com"
+}
+
+---
+
+$ docker exec -it clab-openconfig-lab-leaf2 Cli
+localhost#show hostname
+Hostname: localhost
+FQDN:     localhost.aristanetworks.com
+localhost#
+localhost#show running-config | egrep "dns|hostname"
+dns domain aristanetworks.com
+```
+
+#### DELETE operation
+
+* Using `DELETE` we will remove the dns domain configuration
+
+```shell
+curl -sX DELETE https://172.100.100.4:5900/restconf/data/openconfig-system:system/config/domain-name --header 'Accept: application/yang-data+json' -u admin:admin --insecure
+```
+
+* Checking the configuration we can see the dns domain has been removed
+
+```shell
+$ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/config --header 'Accept: application/yang-data+json' -u admin:admin --insecure | jq
+{
+  "openconfig-system:hostname": "DC1_LEAF2"
+}
+
+----
+
+$ docker exec -it clab-openconfig-lab-leaf2 Cli
+DC1_LEAF2>enable
+DC1_LEAF2#show hostname
+Hostname: DC1_LEAF2
+FQDN:     DC1_LEAF2
+DC1_LEAF2#
+DC1_LEAF2#show running-config | egrep "dns|hostname"
+hostname DC1_LEAF2
+```
+
+## Examples using python
+
