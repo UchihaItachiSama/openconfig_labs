@@ -9,7 +9,7 @@ In this demo, we will take a look at a few examples related to `RESTCONF`.
 Confirm the following packages are installed, if not install them using pip
 
 ```shell
-python3 -m pip freeze | egrep "pyang|pyangbind"
+python3 -m pip freeze | egrep "pyang|pyangbind|requests"
 ```
 
 * containerlab and docker installed
@@ -240,3 +240,142 @@ hostname DC1_LEAF2
 
 ## Examples using python
 
+### GET operation
+
+* Using python `requests` library we will send a `GET` request to query the interface state.
+
+```python
+#!/usr/bin/python3
+
+import requests
+from requests.auth import HTTPBasicAuth
+import json
+from pprint import pprint as pp
+
+requests.packages.urllib3.disable_warnings()
+
+headers = {
+    'Accept': 'application/yang-data+json'
+}
+
+USER="admin"
+PASS="admin"
+
+def getState(ip, port):
+    url = "https://{}:{}/restconf/data/openconfig-interfaces:interfaces/interface=Ethernet1/state".format(ip, port)
+    result = requests.get(url=url, 
+                          auth=HTTPBasicAuth(username=USER, password=PASS), 
+                          headers=headers, 
+                          verify=False)
+    print("\nResult Status Code: {}".format(result.status_code))
+    print("\nResult Content:\n")
+    pp(result.json())
+    
+def main():
+    getState("172.100.100.4", '5900')
+
+if __name__ == "__main__":
+    main()
+```
+
+* Executing the script we can see the interface status
+
+```shell
+$ python3 interface_demo.py
+
+Result Status Code: 200
+
+Result Content:
+
+{'arista-intf-augments:inactive': False,
+ 'openconfig-interfaces:admin-status': 'UP',
+ 'openconfig-interfaces:counters': {'carrier-transitions': '2',
+                                    'in-broadcast-pkts': '0',
+                                    'in-discards': '0',
+                                    'in-errors': '0',
+                                    'in-fcs-errors': '0',
+                                    'in-multicast-pkts': '13644',
+                                    'in-octets': '1746852',
+                                    'in-pkts': '13644',
+                                    'in-unicast-pkts': '0',
+                                    'out-broadcast-pkts': '0',
+                                    'out-discards': '0',
+                                    'out-errors': '0',
+                                    'out-multicast-pkts': '0',
+                                    'out-octets': '0',
+                                    'out-pkts': '0',
+                                    'out-unicast-pkts': '0'},
+ 'openconfig-interfaces:ifindex': 1,
+ 'openconfig-interfaces:last-change': '1707201300270076160',
+ 'openconfig-interfaces:management': False,
+ 'openconfig-interfaces:mtu': 0,
+ 'openconfig-interfaces:name': 'Ethernet1',
+ 'openconfig-interfaces:oper-status': 'UP',
+ 'openconfig-interfaces:type': 'iana-if-type:ethernetCsmacd',
+ 'openconfig-platform-port:hardware-port': 'Ethernet1-Port',
+ 'openconfig-platform-transceiver:transceiver': 'Ethernet1'}
+```
+
+### POST Operation
+
+* Now using the python script we will update the interface dscription
+
+```python
+def interfaceConfig(ip, port):
+    url = "https://{}:{}/restconf/data/openconfig-interfaces:interfaces/interface=Ethernet1/config".format(ip, port)
+    config = {
+        "openconfig-interfaces:description": "P2P_LINK_TO_DC1_SPINE1_Ethernet2"
+    }
+    result = requests.post(url=url,
+                           auth=HTTPBasicAuth(username=USER, password=PASS),
+                           headers=headers,
+                           verify=False,
+                           json=config
+                           )
+    print("\nResult Status Code: {}".format(result.status_code))
+    print("\nResult Content:\n")
+    pp(result.json())
+```
+
+* Execute the script and then let's check the interface configuration
+
+```shell
+$ docker exec -it clab-openconfig-lab-leaf2 Cli
+DC1_LEAF2>enable
+DC1_LEAF2#show interfaces description
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_LINK_TO_DC1_SPINE1_Ethernet2
+Et2                            up             up
+Ma1                            up             up                 oob_management
+DC1_LEAF2#show running-config interfaces ethernet 1
+interface Ethernet1
+   description P2P_LINK_TO_DC1_SPINE1_Ethernet2
+```
+
+### DELETE Operation
+
+* Now using the python script we will delete the interface dscription
+
+```python
+def deleteIntfConfig(ip, port):
+    url = "https://{}:{}/restconf/data/openconfig-interfaces:interfaces/interface=Ethernet1/config/description".format(ip, port)
+    result = requests.delete(url=url,
+                             auth=HTTPBasicAuth(username=USER, password=PASS),
+                             headers=headers,
+                             verify=False)
+    print("\nResult Status Code: {}".format(result.status_code))
+```
+
+* Execute the script and then let's check the interface configuration
+
+```shell
+$ docker exec -it clab-openconfig-lab-leaf2 Cli
+DC1_LEAF2>enable
+DC1_LEAF2#show interfaces description
+Interface                      Status         Protocol           Description
+Et1                            up             up
+Et2                            up             up
+Ma1                            up             up                 oob_management
+DC1_LEAF2#show running-config interfaces ethernet 1
+interface Ethernet1
+```
