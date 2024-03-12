@@ -82,6 +82,8 @@ show version
 show system lldp neighbor
 show network-instance default protocols bgp neighbor
 show network-instance default route-table
+network-instance default protocols bgp
+info flat
 ```
 
 Arista cEOS-Lab
@@ -91,6 +93,7 @@ show version
 show lldp neighbors
 show ip bgp summary
 show ip route
+show running-configuration section bgp
 ```
 
 ### JSON-RPC Examples
