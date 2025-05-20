@@ -1,5 +1,13 @@
 # Intro Demo
 
+## Overview
+
+On this demo we will take a look at:
+
+- CLI configuration and operational states
+- JSON API states
+- OpenConfig states
+
 ## Starting the lab
 
 - Start the [multi-vendor](../../labs/README.md) lab using containerlab.
