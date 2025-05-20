@@ -1,0 +1,41 @@
+---
+name: arlab
+
+topology:
+  kinds:
+    arista_ceos:
+      startup-config: ./ceos.cfg.tpl
+      binds:
+        - interfaceMapping.json:/mnt/flash/EosIntfMapping.json:ro
+      image: arista/ceosarm:4.34.1F
+      exec:
+        - sleep 5
+        - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'
+        - FastCli -p 15 -c 'security pki certificate generate self-signed selfSigned.crt key selfSigned.key generate rsa 2048 validity 30000 parameters common-name selfSigned'
+  nodes:
+    DC1-SPINE1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.2
+    DC1-LEAF1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.3
+    DC1-LEAF2:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.4
+    DC1-CLIENT1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.5
+    DC1-CLIENT2:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.100.6
+  
+  links:
+    - endpoints: ["DC1-LEAF1:eth1", "DC1-SPINE1:eth1"]
+    - endpoints: ["DC1-LEAF2:eth1", "DC1-SPINE1:eth2"]
+    - endpoints: ["DC1-LEAF1:eth2", "DC1-CLIENT1:eth1"]
+    - endpoints: ["DC1-LEAF2:eth2", "DC1-CLIENT2:eth1"]
+
+mgmt:
+  network: ceos_clab                
+  ipv4-subnet: 172.100.100.0/24       
+  ipv6-subnet: 2001:172:100:100::/80

@@ -2,13 +2,7 @@
 
 ## Overview
 
-This folder contains `demo` and `challenge_labs` sub-folders.
-
-The `demo` sub-folder will contain scripts/commands being used in the training which you can copy and work along with the trainer during the training.
-
-The `challenge_labs` sub-folder contains challenge labs for practice as per the trainer's instructions. The folder also contains solution files, but we would recommend not taking a peek at those first :smiley:
-
-Under each folder, you will find details and instructions about the topic in the `README.md` file.
+Each folder will contain scripts/commands being used in the training which you can copy and work along with the trainer during the training.
 
 For any queries or issues please reach out to the maintainer.
 
