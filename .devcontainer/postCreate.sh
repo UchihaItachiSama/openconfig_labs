@@ -8,3 +8,4 @@ python3 -m pip install --upgrade pip
 python3 -m pip install pyang
 python3 -m pip install pyangbind
 python3 -m pip install ncclient
+python3 -m pip install requests

@@ -330,7 +330,7 @@ gnmic path --file demos/public-yang/openconfig-interfaces.yang
 <summary>Reveal Output</summary>
 <p>
 
-```json
+```shell
 /interfaces-state/interface[name=*]/admin-status
 /interfaces-state/interface[name=*]/higher-layer-if
 /interfaces-state/interface[name=*]/if-index
