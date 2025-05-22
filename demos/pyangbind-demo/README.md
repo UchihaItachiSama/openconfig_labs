@@ -1,6 +1,24 @@
 # pyangbind demo
 
-In this demo we will be using [Pyangbind](https://github.com/robshakir/pyangbind) to generate a Python class hierarchy from a YANG model and configuring a Aista cEOS-Lab node.
+- [pyangbind demo](#pyangbind-demo)
+  - [Requirements](#requirements)
+  - [Generating python classes from YANG module](#generating-python-classes-from-yang-module)
+    - [Before configuration](#before-configuration)
+    - [Configuration](#configuration)
+    - [After configuration](#after-configuration)
+    - [Switch CLI](#switch-cli)
+
+In this demo we will be using [Pyangbind](https://github.com/robshakir/pyangbind) to generate a Python class hierarchy from a YANG model and configuring a Arista cEOS-Lab node.
+
+## Requirements
+
+Confirm the following packages are installed, else install them using `pip`
+
+```shell
+python3 -m pip freeze | egrep "pyang|pyangbind"
+```
+
+Start the [arista-ceos](../../labs/arista-ceos/) lab using containerlab.
 
 ## Generating python classes from YANG module
 
@@ -60,6 +78,10 @@ fobj.close()
 
 Execute the `config-demo.py` file and we can now see the JSON file is generated.
 
+<details>
+<summary>Reveal Output</summary>
+<p>
+
 ```json
 {
   "openconfig-system:system": {
@@ -110,13 +132,23 @@ Execute the `config-demo.py` file and we can now see the JSON file is generated.
 }
 ```
 
+</p>
+</details>
+</br>
+
 Using the generated `DC1_SPINE1_config.json` we will configure the hostname, DNS and NTP servers on `spine1` cEOS-Lab node.
 
 ### Before configuration
 
-```json
+```shell
 gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip get --path '/system/config' --path '/system/ntp' --path '/system/dns'
+```
 
+<details>
+<summary>Reveal Output</summary>
+<p>
+
+```json
 [
   {
     "source": "clab-arlab-spine1:6030",
@@ -161,11 +193,20 @@ gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip get --path '
 ]
 ```
 
+</p>
+</details>
+
 ### Configuration
 
-```json
+```shell
 gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip set --update-path '/' --update-file DC1_SPINE1_config.json
+```
 
+<details>
+<summary>Reveal Output</summary>
+<p>
+
+```json
 {
   "source": "clab-arlab-spine1:6030",
   "timestamp": 1747897814774075584,
@@ -178,10 +219,20 @@ gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip set --update
 }
 ```
 
+</p>
+</details>
+
 ### After configuration
 
-```json
+```shell
 gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip get --path '/system/config' --path '/system/ntp' --path '/system/dns'
+```
+
+<details>
+<summary>Reveal Output</summary>
+<p>
+
+```json
 [
   {
     "source": "clab-arlab-spine1:6030",
@@ -286,6 +337,9 @@ gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip get --path '
   }
 ]
 ```
+
+</p>
+</details>
 
 ### Switch CLI
 

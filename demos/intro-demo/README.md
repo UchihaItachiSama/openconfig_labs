@@ -1,8 +1,15 @@
 # Intro Demo
 
+- [Intro Demo](#intro-demo)
+  - [Overview](#overview)
+  - [Starting the lab](#starting-the-lab)
+  - [CLI Commands](#cli-commands)
+  - [JSON-RPC Examples](#json-rpc-examples)
+  - [OpenConfig Example](#openconfig-example)
+
 ## Overview
 
-On this demo we will take a look at:
+In this demo we will take a look at:
 
 - CLI configuration and operational states
 - JSON API states

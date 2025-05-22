@@ -1,5 +1,12 @@
 # Labs
 
+- [Labs](#labs)
+  - [Requirements](#requirements)
+  - [Arista cEOS-Lab](#arista-ceos-lab)
+    - [Installing Arista cEOS-Lab image](#installing-arista-ceos-lab-image)
+  - [Multi-vendor Lab](#multi-vendor-lab)
+    - [Installing Nokia SR Linux image](#installing-nokia-sr-linux-image)
+
 ## Requirements
 
 Following basic tools are required for deploying the labs:
@@ -11,7 +18,7 @@ Following basic tools are required for deploying the labs:
   - [Nokia srlinux image](https://github.com/nokia/srlinux-container-image/releases)
 - vscode
 
-For using containerlab and Arista cEOS-Lab on MAC OS (arm) use the [devcontainer](https://containerlab.dev/macos/#devcontainer) for containerlab and cEOS-Lab arm image from software downloads.
+**NOTE**: For using containerlab and Arista cEOS-Lab on MAC OS (arm) use the [devcontainer](https://containerlab.dev/macos/#devcontainer) for containerlab and cEOS-Lab arm image from software downloads.
 
 ## Arista cEOS-Lab
 

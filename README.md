@@ -8,11 +8,11 @@ Refer to the `README.md` under each folder for more details.
 
 ## Topics
 
+- pyang
+- pyangbind
 - NETCONF
 - RESTCONF
 - gRPC
 - gNMI
   - gnmic
   - gNMI gateway
-- pyang
-- pyangbind
