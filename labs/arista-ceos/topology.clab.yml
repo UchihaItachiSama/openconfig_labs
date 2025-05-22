@@ -13,27 +13,27 @@ topology:
         - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'
         - FastCli -p 15 -c 'security pki certificate generate self-signed selfSigned.crt key selfSigned.key generate rsa 2048 validity 30000 parameters common-name selfSigned'
   nodes:
-    DC1-SPINE1:
+    spine1:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.2
-    DC1-LEAF1:
+    leaf1:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.3
-    DC1-LEAF2:
+    leaf2:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.4
-    DC1-CLIENT1:
+    client1:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.5
-    DC1-CLIENT2:
+    client2:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.6
   
   links:
-    - endpoints: ["DC1-LEAF1:eth1", "DC1-SPINE1:eth1"]
-    - endpoints: ["DC1-LEAF2:eth1", "DC1-SPINE1:eth2"]
-    - endpoints: ["DC1-LEAF1:eth2", "DC1-CLIENT1:eth1"]
-    - endpoints: ["DC1-LEAF2:eth2", "DC1-CLIENT2:eth1"]
+    - endpoints: ["leaf1:eth1", "spine1:eth1"]
+    - endpoints: ["leaf2:eth1", "spine1:eth2"]
+    - endpoints: ["leaf1:eth2", "client1:eth1"]
+    - endpoints: ["leaf2:eth2", "client2:eth1"]
 
 mgmt:
   network: ceos_clab                
