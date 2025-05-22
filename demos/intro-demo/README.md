@@ -40,13 +40,13 @@ show running-configuration section bgp
 Nokia SR Linux
 
 ```shell
-curl -s 'http://admin:NokiaSrl1!@172.100.200.2/jsonrpc' -d @requests/srl-request.json  | jq
+curl -s 'http://admin:NokiaSrl1!@172.100.200.2/jsonrpc' -d @demos/intro-demo/requests/srl-request.json  | jq
 ```
 
 Arista cEOS-Lab
 
 ```shell
-curl -sk -X POST https://admin:admin@172.100.200.3/command-api -H "Content-Type: text/json" -d @requests/ceos-request.json | jq
+curl -sk -X POST https://admin:admin@172.100.200.3/command-api -H "Content-Type: text/json" -d @demos/intro-demo/requests/ceos-request.json | jq
 ```
 
 ## OpenConfig Example

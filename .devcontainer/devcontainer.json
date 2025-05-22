@@ -9,6 +9,7 @@
         "type=bind,src=/var/lib/docker,dst=/var/lib/docker",
         "type=bind,src=/lib/modules,dst=/lib/modules"
     ],
+    "remoteUser": "vscode",
     "postCreateCommand": "bash .devcontainer/postCreate.sh",
     "workspaceFolder": "${localWorkspaceFolder}",
     "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
@@ -18,5 +19,10 @@
                 "VASubasRaj.flashpost"
             ]
         }
+    },
+    "containerEnv": {
+        "PYBINDPLUGIN": "/home/vscode/.local/lib/python3.11/site-packages/pyangbind/plugin",
+        "AR_MODELS_DIR": "${localWorkspaceFolder}/demos/arista-yang",
+        "PUBLIC_MODELS_DIR": "${localWorkspaceFolder}/demos/public-yang"
     }
 }
