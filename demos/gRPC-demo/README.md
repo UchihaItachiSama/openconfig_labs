@@ -1,5 +1,13 @@
 # gRPC Demo
 
+- [gRPC Demo](#grpc-demo)
+  - [Requirements](#requirements)
+  - [gRPC Service](#grpc-service)
+  - [Testing the application](#testing-the-application)
+    - [Start the Server](#start-the-server)
+    - [Start the client](#start-the-client)
+    - [Analyzing gRPC messages in Wireshark](#analyzing-grpc-messages-in-wireshark)
+
 In this demo, we will take a look at a very basic example of `gRPC`
 
 ## Requirements

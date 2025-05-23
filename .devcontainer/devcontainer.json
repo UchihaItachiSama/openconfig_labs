@@ -20,6 +20,9 @@
             ]
         }
     },
+    //"features": {
+    //    "ghcr.io/devcontainers/features/go:1": {}
+    //},
     "containerEnv": {
         "PYBINDPLUGIN": "/home/vscode/.local/lib/python3.11/site-packages/pyangbind/plugin",
         "AR_MODELS_DIR": "${localWorkspaceFolder}/demos/arista-yang",

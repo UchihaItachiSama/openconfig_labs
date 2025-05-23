@@ -46,7 +46,7 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/s
   "openconfig-system:current-datetime": "2025-05-22T10:31:22Z",
   "openconfig-system:hostname": "leaf2",
   "openconfig-system:last-configuration-timestamp": "1747909883508515712",
-  "openconfig-system:software-version": "4.34.1F-41757195.orinocorel (engineering build)"
+  "openconfig-system:software-version": "4.34.1F-41757195 (engineering build)"
 }
 ```
 
@@ -157,7 +157,7 @@ curl -sX GET https://172.100.100.4:5900/restconf/data/openconfig-system:system/s
   "openconfig-system:domain-name": "aristanetworks.com",
   "openconfig-system:hostname": "DC1_LEAF2",
   "openconfig-system:last-configuration-timestamp": "1747910382450388971",
-  "openconfig-system:software-version": "4.34.1F-41757195.orinocorel (engineering build)"
+  "openconfig-system:software-version": "4.34.1F-41757195 (engineering build)"
 }
 ```
 

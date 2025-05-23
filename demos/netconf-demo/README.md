@@ -415,7 +415,7 @@ eos.close_session()
                                 <current-datetime>2025-05-22T08:02:00Z</current-datetime>
                                 <hostname>spine1</hostname>
                                 <last-configuration-timestamp>1747899857260751724</last-configuration-timestamp>
-                                <software-version>4.34.1F-41757195.orinocorel (engineering build)</software-version>
+                                <software-version>4.34.1F-41757195 (engineering build)</software-version>
                         </state>
                 </system>
         </data>
@@ -469,7 +469,7 @@ eos.close_session()
                                                                 <port-id>Ethernet1</port-id>
                                                                 <port-id-type>INTERFACE_NAME</port-id-type>
                                                                 <registration-time xmlns="http://arista.com/yang/openconfig/lldp/augments">1747899796</registration-time>
-                                                                <system-description>Arista Networks EOS version 4.34.1F-41757195.orinocorel (engineering build) running on an Arista cEOSLab</system-description>
+                                                                <system-description>Arista Networks EOS version 4.34.1F-41757195 (engineering build) running on an Arista cEOSLab</system-description>
                                                                 <system-name>leaf1</system-name>
                                                         </state>
                                                 </neighbor>
@@ -1020,8 +1020,8 @@ DC1_LEAF1# show running-config  diffs
 --- flash:/startup-config
 +++ system:/running-config
 @@ -1,4 +1,4 @@
--! device: leaf1 (cEOSLab, EOS-4.34.1F-41757195.orinocorel (engineering build))
-+! device: DC1-LEAF1 (cEOSLab, EOS-4.34.1F-41757195.orinocorel (engineering build))
+-! device: leaf1 (cEOSLab, EOS-4.34.1F-41757195 (engineering build))
++! device: DC1-LEAF1 (cEOSLab, EOS-4.34.1F-41757195 (engineering build))
  !
  no aaa root
  !
