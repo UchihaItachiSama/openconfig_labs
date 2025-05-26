@@ -476,7 +476,7 @@ gnmic -a clab-arlab-spine1:6030 -u admin -p admin --insecure --gzip set --update
 <summary>Reveal Switch State</summary>
 <p>
 
-```json
+```shell
 spine1#show running-config interfaces Ethernet 2
 interface Ethernet2
    ip address 172.31.255.3/31
