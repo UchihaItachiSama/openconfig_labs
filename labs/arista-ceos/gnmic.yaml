@@ -1,0 +1,50 @@
+---
+insecure: true
+log: true
+username: admin
+password: admin
+
+subscriptions:
+  system-info:
+    mode: once
+    paths:
+      - '/system/state/software-version'
+      - '/system/state/hostname'
+  port-stats:
+    paths:
+      - 'interfaces/interface[name=Management1]/state/counters/in-octets'
+      - 'interfaces/interface[name=Management1]/state/counters/out-octets'
+    stream_mode: on-change
+  mem-stats:
+    paths:
+      - 'eos_native:/Kernel/proc/meminfo'
+  cpu-stats:
+    paths:
+      - 'eos_native:/Kernel/proc/cpu/utilization/total'
+
+targets:
+  clab-arlab-spine1:
+    address: 172.100.100.2:6030
+    gzip: true
+    subscriptions:
+      - system-info
+      - port-stats
+  clab-arlab-leaf1:
+    address: 172.100.100.3:6030
+    gzip: true
+    subscriptions:
+      - system-info
+      - mem-stats
+  clab-arlab-leaf2:
+    address: 172.100.100.4:6030
+    gzip: true
+    subscriptions:
+      - system-info
+      - cpu-stats
+
+tunnel-server:
+  address: ":57401"
+  targets:
+    - id: clab-arlab-spine1
+    - id: clab-arlab-leaf1
+    - id: clab-arlab-leaf2

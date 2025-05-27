@@ -16,26 +16,70 @@ topology:
     spine1:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.2
+      labels:
+        graph-icon: spine
+        graph-group: "Data Center Spine"
+        graph-level: "1"
+        graph-posX: "-5"
+        graph-posY: "-55"
+        graph-groupLabelPos: bottom-center
     leaf1:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.3
+      labels:
+        graph-icon: router
+        graph-group: "Data Center Leaf"
+        graph-level: "2"
+        graph-posX: "-85"
+        graph-posY: "45"
+        graph-groupLabelPos: bottom-center
     leaf2:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.4
+      labels:
+        graph-icon: router
+        graph-group: "Data Center Leaf"
+        graph-level: "2"
+        graph-posX: "95"
+        graph-posY: "45"
+        graph-groupLabelPos: bottom-center
     client1:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.5
+      labels:
+        graph-icon: client
+        graph-group: "Clients"
+        graph-level: "3"
+        graph-posX: "-85"
+        graph-posY: "135"
+        graph-groupLabelPos: bottom-center
     client2:
       kind: arista_ceos
       mgmt-ipv4: 172.100.100.6
-  
+      labels:
+        graph-icon: client
+        graph-group: "Clients"
+        graph-level: "3"
+        graph-posX: "95"
+        graph-posY: "135"
+        graph-groupLabelPos: bottom-center
+    gnmic:
+      kind: linux
+      mgmt-ipv4: 172.100.100.7
+      image: ghcr.io/openconfig/gnmic:latest
+      binds:
+        - ./gnmic.yaml:/app/gnmic.yaml:ro
+      ports:
+        - 57401:57401
+      cmd: "--config /app/gnmic.yaml --use-tunnel-server subscribe"
+
   links:
-    - endpoints: ["leaf1:eth1", "spine1:eth1"]
-    - endpoints: ["leaf2:eth1", "spine1:eth2"]
-    - endpoints: ["leaf1:eth2", "client1:eth1"]
-    - endpoints: ["leaf2:eth2", "client2:eth1"]
+    - endpoints: [ "leaf1:eth1", "spine1:eth1" ]
+    - endpoints: [ "leaf2:eth1", "spine1:eth2" ]
+    - endpoints: [ "leaf1:eth2", "client1:eth1" ]
+    - endpoints: [ "leaf2:eth2", "client2:eth1" ]
 
 mgmt:
-  network: ceos_clab                
-  ipv4-subnet: 172.100.100.0/24       
+  network: ceos_clab
+  ipv4-subnet: 172.100.100.0/24
   ipv6-subnet: 2001:172:100:100::/80
