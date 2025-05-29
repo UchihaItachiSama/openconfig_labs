@@ -93,3 +93,15 @@ gnmic:
 ### Switch
 
 Following configuration is required under the `management api gnmi` configuration mode.
+
+```shell
+management api gnmi
+   transport grpc oob
+   !
+   transport grpc-tunnel tunnel1
+      destination 172.100.100.7 port 57401
+      local interface Management1
+      target clab-arlab-spine1
+   provider eos-native
+```
+
