@@ -1,0 +1,6 @@
+pyang
+pyangbind
+ncclient
+requests
+grpcio
+grpcio-tools

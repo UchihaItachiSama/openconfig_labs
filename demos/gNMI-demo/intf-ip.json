@@ -1,0 +1,16 @@
+{
+    "config": {
+        "enabled": true
+    },
+    "addresses": {
+        "address": [
+            {
+                "ip": "172.31.255.2",
+                "config": {
+                    "ip": "172.31.255.2",
+                    "prefix-length": 31
+                }
+            }
+        ]
+    }
+}

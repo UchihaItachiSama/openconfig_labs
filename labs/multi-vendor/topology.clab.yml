@@ -1,0 +1,30 @@
+---
+name: srlceoslab
+
+topology:
+  kinds:
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:25.3.2
+      startup-config: baseline/srl-startup.cli
+    arista_ceos:
+      startup-config: baseline/ceos-startup.cfg
+      image: arista/ceosarm:4.34.1F
+      exec:
+        - sleep 5
+        - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'
+        - FastCli -p 15 -c 'security pki certificate generate self-signed selfSigned.crt key selfSigned.key generate rsa 2048 validity 30000 parameters common-name selfSigned'
+  nodes:
+    SRL-RTR1:
+      kind: nokia_srlinux
+      mgmt-ipv4: 172.100.200.2
+    CEOS-RTR2:
+      kind: arista_ceos
+      mgmt-ipv4: 172.100.200.3
+
+  links:
+    - endpoints: ["SRL-RTR1:e1-1", "CEOS-RTR2:eth1"]
+
+mgmt:
+  network: srl_ceos_lab
+  ipv4-subnet: 172.100.200.0/24
+  ipv6-subnet: 2001:172:100:200::/80
