@@ -12,7 +12,7 @@ install: install-uv install-python install-tools
 	@echo "  source .venv/bin/activate"
 	@echo ""
 	@echo "Then set the required environment variables:"
-	@printf "  export PYBINDPLUGIN=$$(python -c "import pyangbind; import os; print(os.path.dirname(pyangbind.__file__)+'/plugin')")"
+	@printf "  export PYBINDPLUGIN=\$$(python -c \"import pyangbind; import os; print(os.path.dirname(pyangbind.__file__) + '/plugin')\")\n"
 	@echo '  export PYTHONWARNINGS="ignore::UserWarning:pyang.plugin"'
 
 # Install uv

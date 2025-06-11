@@ -4,3 +4,4 @@ ncclient
 requests
 grpcio
 grpcio-tools
+jsonrpclib-pelix
