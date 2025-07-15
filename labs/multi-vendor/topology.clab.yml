@@ -8,7 +8,7 @@ topology:
       startup-config: baseline/srl-startup.cli
     arista_ceos:
       startup-config: baseline/ceos-startup.cfg
-      image: arista/ceosarm:4.34.1F
+      image: arista/ceos:4.34.1F
       exec:
         - sleep 5
         - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'

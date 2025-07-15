@@ -7,7 +7,7 @@ topology:
       startup-config: ./ceos.cfg.tpl
       binds:
         - interfaceMapping.json:/mnt/flash/EosIntfMapping.json:ro
-      image: arista/ceosarm:4.34.1F
+      image: arista/ceos:4.34.1F
       exec:
         - sleep 5
         - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'
