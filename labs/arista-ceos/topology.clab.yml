@@ -9,9 +9,11 @@ topology:
         - interfaceMapping.json:/mnt/flash/EosIntfMapping.json:ro
       image: arista/ceos:4.34.1F
       exec:
-        - sleep 5
+        - sleep 10
         - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'
         - FastCli -p 15 -c 'security pki certificate generate self-signed selfSigned.crt key selfSigned.key generate rsa 2048 validity 30000 parameters common-name selfSigned'
+    linux:
+      image: alpine-host
   nodes:
     spine1:
       kind: arista_ceos
@@ -44,8 +46,10 @@ topology:
         graph-posY: "45"
         graph-groupLabelPos: bottom-center
     client1:
-      kind: arista_ceos
+      kind: linux
       mgmt-ipv4: 172.100.100.5
+      env:
+        TMODE: none
       labels:
         graph-icon: client
         graph-group: "Clients"
@@ -54,8 +58,10 @@ topology:
         graph-posY: "135"
         graph-groupLabelPos: bottom-center
     client2:
-      kind: arista_ceos
+      kind: linux
       mgmt-ipv4: 172.100.100.6
+      env:
+        TMODE: none
       labels:
         graph-icon: client
         graph-group: "Clients"

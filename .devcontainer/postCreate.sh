@@ -31,3 +31,10 @@ python3 -m pip install --upgrade pip
 python3 -m pip install -r .devcontainer/requirements.txt
 # Install cEOS-Lab Image
 pull_arch_specific_ceos_image
+# Pull srlinux
+docker pull ghcr.io/nokia/srlinux:25.3.2
+# build client image
+(
+    cd alpine_host || exit 1
+    docker build -t alpine-host .
+)
