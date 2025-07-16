@@ -45,30 +45,31 @@ topology:
         graph-posX: "95"
         graph-posY: "45"
         graph-groupLabelPos: bottom-center
-    client1:
-      kind: linux
-      mgmt-ipv4: 172.100.100.5
-      env:
-        TMODE: none
-      labels:
-        graph-icon: client
-        graph-group: "Clients"
-        graph-level: "3"
-        graph-posX: "-85"
-        graph-posY: "135"
-        graph-groupLabelPos: bottom-center
-    client2:
-      kind: linux
-      mgmt-ipv4: 172.100.100.6
-      env:
-        TMODE: none
-      labels:
-        graph-icon: client
-        graph-group: "Clients"
-        graph-level: "3"
-        graph-posX: "95"
-        graph-posY: "135"
-        graph-groupLabelPos: bottom-center
+    # Uncomment below to use clients in the topology
+    #client1:
+    #  kind: linux
+    #  mgmt-ipv4: 172.100.100.5
+    #  env:
+    #    TMODE: none
+    #  labels:
+    #    graph-icon: client
+    #    graph-group: "Clients"
+    #    graph-level: "3"
+    #    graph-posX: "-85"
+    #    graph-posY: "135"
+    #    graph-groupLabelPos: bottom-center
+    #client2:
+    #  kind: linux
+    #  mgmt-ipv4: 172.100.100.6
+    #  env:
+    #    TMODE: none
+    #  labels:
+    #    graph-icon: client
+    #    graph-group: "Clients"
+    #    graph-level: "3"
+    #    graph-posX: "95"
+    #    graph-posY: "135"
+    #    graph-groupLabelPos: bottom-center
     gnmic:
       kind: linux
       mgmt-ipv4: 172.100.100.7
@@ -82,8 +83,9 @@ topology:
   links:
     - endpoints: [ "leaf1:eth1", "spine1:eth1" ]
     - endpoints: [ "leaf2:eth1", "spine1:eth2" ]
-    - endpoints: [ "leaf1:eth2", "client1:eth1" ]
-    - endpoints: [ "leaf2:eth2", "client2:eth1" ]
+    # Uncomment below to use clients in the topology
+    #- endpoints: [ "leaf1:eth2", "client1:eth1" ]
+    #- endpoints: [ "leaf2:eth2", "client2:eth1" ]
 
 mgmt:
   network: ceos_clab
