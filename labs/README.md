@@ -13,10 +13,8 @@
 
 It's advised to deploy the labs using below options, as it takes care of installing required images, tools and packages:
 
-- Codespaces -- [Click here to deploy](https://codespaces.new/UchihaItachiSama/openconfig_labs/tree/update-labs?quickstart=1&devcontainer_path=.devcontainer%2Fdocker-in-docker%2Fdevcontainer.json)
-- Devpod
-  - Docker outside of Docker -- [Click here to deploy](https://devpod.sh/open#https://github.com/UchihaItachiSama/openconfig_labs/tree/update-labs)
-  - Docker in Docker -- [Click here to deploy](https://devpod.sh/open#https://github.com/UchihaItachiSama/openconfig_labs/blob/update-labs/.devcontainer/docker-in-docker/devcontainer.json)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/UchihaItachiSama/openconfig_labs?quickstart=1&devcontainer_path=.devcontainer%2Fdocker-in-docker%2Fdevcontainer.json)
+[![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/UchihaItachiSama/openconfig_labs)
 
 **NOTE:** *If deploying manually then refer to respective lab sections for steps to install images. To know more about containerlab in codespaces go [here](https://containerlab.dev/manual/codespaces/), for devpod go [here](https://containerlab.dev/macos/#devpod)*
 
@@ -34,7 +32,7 @@ It's advised to deploy the labs using below options, as it takes care of install
 
 <img src="../images/ceos-lab.png" width=450 height=350>
 
-**NOTE:** *Clients are disabled by default, to use clients uncomment the lines from [topology.yml](../labs/arista-ceos/topology.clab.yml)*
+**NOTE:** *Clients are disabled by default, to use clients uncomment the lines from [topology.clab.yml](../labs/arista-ceos/topology.clab.yml)*
 
 ### Installing Arista cEOS-Lab image
 
