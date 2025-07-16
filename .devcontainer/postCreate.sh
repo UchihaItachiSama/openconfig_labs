@@ -42,7 +42,7 @@ install_images() {
 
 install_packages() {
     #Install gnmic
-    bash -c "$(curl -sL https://get-gnmic.openconfig.net)"
+    bash -c "$(curl -sL https://get-gnmic.openconfig.net)" -- -v 0.41.0
     
     #Install gnoic
     #bash -c "$(curl -sL https://get-gnoic.kmrd.dev)"
