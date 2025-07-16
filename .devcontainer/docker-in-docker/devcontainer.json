@@ -1,0 +1,28 @@
+{
+    "image": "ghcr.io/srl-labs/containerlab/devcontainer-dind-slim:0.68.0", 
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "VASubasRaj.flashpost"
+            ]
+        }
+    },
+    "secrets": {
+        "ARTOKEN": {
+            "description": "Token to download cEOS-Lab image from arista.com"
+        }
+    },
+    "hostRequirements": {
+        "cpus": 4,
+        "memory": "16gb",
+        "storage": "32gb"
+    },
+    "containerEnv": {
+        "ARISTA_TOKEN": "${localEnv:ARTOKEN}",
+        "PYBINDPLUGIN": "/home/vscode/.local/lib/python3.11/site-packages/pyangbind/plugin",
+        "AR_MODELS_DIR": "${localWorkspaceFolder}/demos/arista-yang",
+        "PUBLIC_MODELS_DIR": "${localWorkspaceFolder}/demos/public-yang"
+    },
+    "remoteUser": "vscode",
+    "postCreateCommand": "bash .devcontainer/postCreate.sh"
+}

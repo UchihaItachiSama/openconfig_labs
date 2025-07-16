@@ -20,10 +20,14 @@
             ]
         }
     },
-    //"features": {
-    //    "ghcr.io/devcontainers/features/go:1": {}
-    //},
+    "secrets": {
+        "ARTOKEN": {
+            "description": "Token to download cEOS-Lab image from arista.com"
+        }
+    },
     "containerEnv": {
+        //For dood use --> echo 'export ARTOKEN=token-value' >> ~/.zshenv
+        "ARISTA_TOKEN": "${localEnv:ARTOKEN}",
         "PYBINDPLUGIN": "/home/vscode/.local/lib/python3.11/site-packages/pyangbind/plugin",
         "AR_MODELS_DIR": "${localWorkspaceFolder}/demos/arista-yang",
         "PUBLIC_MODELS_DIR": "${localWorkspaceFolder}/demos/public-yang"

@@ -7,11 +7,13 @@ topology:
       startup-config: ./ceos.cfg.tpl
       binds:
         - interfaceMapping.json:/mnt/flash/EosIntfMapping.json:ro
-      image: arista/ceosarm:4.34.1F
+      image: arista/ceos:4.34.1F
       exec:
-        - sleep 5
+        - sleep 10
         - FastCli -p 15 -c 'security pki key generate rsa 2048 selfSigned.key'
         - FastCli -p 15 -c 'security pki certificate generate self-signed selfSigned.crt key selfSigned.key generate rsa 2048 validity 30000 parameters common-name selfSigned'
+    linux:
+      image: alpine-host
   nodes:
     spine1:
       kind: arista_ceos
@@ -43,26 +45,31 @@ topology:
         graph-posX: "95"
         graph-posY: "45"
         graph-groupLabelPos: bottom-center
-    client1:
-      kind: arista_ceos
-      mgmt-ipv4: 172.100.100.5
-      labels:
-        graph-icon: client
-        graph-group: "Clients"
-        graph-level: "3"
-        graph-posX: "-85"
-        graph-posY: "135"
-        graph-groupLabelPos: bottom-center
-    client2:
-      kind: arista_ceos
-      mgmt-ipv4: 172.100.100.6
-      labels:
-        graph-icon: client
-        graph-group: "Clients"
-        graph-level: "3"
-        graph-posX: "95"
-        graph-posY: "135"
-        graph-groupLabelPos: bottom-center
+    # Uncomment below to use clients in the topology
+    #client1:
+    #  kind: linux
+    #  mgmt-ipv4: 172.100.100.5
+    #  env:
+    #    TMODE: none
+    #  labels:
+    #    graph-icon: client
+    #    graph-group: "Clients"
+    #    graph-level: "3"
+    #    graph-posX: "-85"
+    #    graph-posY: "135"
+    #    graph-groupLabelPos: bottom-center
+    #client2:
+    #  kind: linux
+    #  mgmt-ipv4: 172.100.100.6
+    #  env:
+    #    TMODE: none
+    #  labels:
+    #    graph-icon: client
+    #    graph-group: "Clients"
+    #    graph-level: "3"
+    #    graph-posX: "95"
+    #    graph-posY: "135"
+    #    graph-groupLabelPos: bottom-center
     gnmic:
       kind: linux
       mgmt-ipv4: 172.100.100.7
@@ -76,10 +83,10 @@ topology:
   links:
     - endpoints: [ "leaf1:eth1", "spine1:eth1" ]
     - endpoints: [ "leaf2:eth1", "spine1:eth2" ]
-    - endpoints: [ "leaf1:eth2", "client1:eth1" ]
-    - endpoints: [ "leaf2:eth2", "client2:eth1" ]
+    # Uncomment below to use clients in the topology
+    #- endpoints: [ "leaf1:eth2", "client1:eth1" ]
+    #- endpoints: [ "leaf2:eth2", "client2:eth1" ]
 
 mgmt:
   network: ceos_clab
   ipv4-subnet: 172.100.100.0/24
-  ipv6-subnet: 2001:172:100:100::/80
